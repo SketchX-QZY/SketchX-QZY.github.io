@@ -1,0 +1,98 @@
+#welcome {
+    height: 400px;
+    width: 400px;
+    margin: auto;
+    position: absolute;
+}
+
+#disclaimer {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+.grid-container {
+    position: absolute;
+    left: 285;
+    top: 300;
+    right: 0;
+    padding-top: 30px;
+    display: grid;
+    /* background: rgb(253,190,63); */
+    justify-content: space-evenly;
+    grid-template-areas:
+        "Header Header"
+        "Human AI"
+        "Footer Footer";
+}
+
+.Title {
+    grid-area: Header;
+    display: none;
+}
+
+.Human {
+    width: 500px;
+    grid-area: Human;
+    background: url(assets/img/human.png) no-repeat 0 0;
+    background-size:cover;
+    border: 8px solid #fd6585;
+}
+
+.AI {
+    width: 500px;
+    grid-area: AI;
+    background: url(assets/img/ai.png) no-repeat 0 0;
+    background-size: cover;
+    border: 8px solid #3da3e8;
+}
+
+.Result {
+    position: absolute;
+    left: 285;
+    right: 0;
+    height: 200px;
+    justify-content: center;
+    grid-area: Result;
+    display: flex;
+}
+
+.Footer {
+    text-align: center;
+    grid-area: Footer;
+    display: none;
+}
+
+.left-slider {
+    width: 225px;
+    height: 100%;
+    min-height: 800px;
+    position: relative;
+    z-index: 1;
+    padding: 30px;
+    background: url(assets/img/slider.png) no-repeat 0 0;
+    background-size: cover;
+    background-color: black;
+}
+
+span.title-span {
+    margin-left: 10px;
+}
+
+.photo-container {
+    position: absolute;
+    left: 284;
+    top: 0;
+    right: 0;
+    display: grid;
+    min-width: 1101px;
+    background-color: black;
+    grid-template-columns: auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto;
+    grid-gap: 0;
+    padding: 1px;
+}
+
+.photo {
+    border: 1px solid black;
+    padding-bottom: 100%;
+}

@@ -1,0 +1,410 @@
+<html lang="en">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
+  <title>Pixelary</title> 
+  <meta charset="utf-8" /> 
+  <meta name="renderer" content="webkit" /> 
+  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" /> 
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" /> 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.0.0/dist/tf.min.js"></script>
+  <script type="text/javascript">
+    document.getElementById('start_button').onmouseover = function() {
+        this.childNodes[1].style.width = '25px';
+    }
+    document.getElementById('start_button').onmouseout = function() {
+        this.childNodes[1].style.width = '0px';
+    }
+    </script> 
+  <link rel="stylesheet" href="styles.css" /> 
+  <link rel="stylesheet" href="inspector-stylesheet.css" /> 
+  <style type="text/css">/* Chart.js */
+/*
+ * DOM element rendering detection
+ * https://davidwalsh.name/detect-node-insertion
+ */
+@keyframes chartjs-render-animation {
+    from { opacity: 0.99; }
+    to { opacity: 1; }
+}
+
+.chartjs-render-monitor {
+    animation: chartjs-render-animation 0.001s;
+}
+
+/*
+ * DOM element resizing detection
+ * https://github.com/marcj/css-element-queries
+ */
+.chartjs-size-monitor,
+.chartjs-size-monitor-expand,
+.chartjs-size-monitor-shrink {
+    position: absolute;
+    direction: ltr;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+    pointer-events: none;
+    visibility: hidden;
+    z-index: -1;
+}
+
+.chartjs-size-monitor-expand > div {
+    position: absolute;
+    width: 1000000px;
+    height: 1000000px;
+    left: 0;
+    top: 0;
+}
+
+.chartjs-size-monitor-shrink > div {
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    left: 0;
+    top: 0;
+}
+</style>
+  <style type="text/css">/* Chart.js */
+/*
+ * DOM element rendering detection
+ * https://davidwalsh.name/detect-node-insertion
+ */
+@keyframes chartjs-render-animation {
+    from { opacity: 0.99; }
+    to { opacity: 1; }
+}
+
+.chartjs-render-monitor {
+    animation: chartjs-render-animation 0.001s;
+}
+
+/*
+ * DOM element resizing detection
+ * https://github.com/marcj/css-element-queries
+ */
+.chartjs-size-monitor,
+.chartjs-size-monitor-expand,
+.chartjs-size-monitor-shrink {
+    position: absolute;
+    direction: ltr;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+    pointer-events: none;
+    visibility: hidden;
+    z-index: -1;
+}
+
+.chartjs-size-monitor-expand > div {
+    position: absolute;
+    width: 1000000px;
+    height: 1000000px;
+    left: 0;
+    top: 0;
+}
+
+.chartjs-size-monitor-shrink > div {
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    left: 0;
+    top: 0;
+}
+</style>
+  <style type="text/css">/* Chart.js */
+/*
+ * DOM element rendering detection
+ * https://davidwalsh.name/detect-node-insertion
+ */
+@keyframes chartjs-render-animation {
+    from { opacity: 0.99; }
+    to { opacity: 1; }
+}
+
+.chartjs-render-monitor {
+    animation: chartjs-render-animation 0.001s;
+}
+
+/*
+ * DOM element resizing detection
+ * https://github.com/marcj/css-element-queries
+ */
+.chartjs-size-monitor,
+.chartjs-size-monitor-expand,
+.chartjs-size-monitor-shrink {
+    position: absolute;
+    direction: ltr;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+    pointer-events: none;
+    visibility: hidden;
+    z-index: -1;
+}
+
+.chartjs-size-monitor-expand > div {
+    position: absolute;
+    width: 1000000px;
+    height: 1000000px;
+    left: 0;
+    top: 0;
+}
+
+.chartjs-size-monitor-shrink > div {
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    left: 0;
+    top: 0;
+}
+</style>
+ </head> 
+ <body style="
+    margin: auto;
+    width: 100%;
+"> 
+  <div class="left-slider" style="
+"> 
+  <a style="
+" class="navbar-brand" href="http://sketchx.ai/"><img class="navbar-image" src="assets/img/SketchX.png" style="width: 225px; padding-bottom: 30px;" /></a> 
+   <p style="
+    margin-top: 0px;
+    margin-bottom: 0px;
+"> <span class="title-span">Category</span> </p> 
+   <p style="
+    margin-top: 0px;
+    margin-bottom: 10px;
+"> <select id="class_selector" onchange="selectChange(true);"> <option value="Bicycle">Bicycle</option> <option value="Binoculars">Binoculars</option> <option value="Birthday_cake">Birthday cake</option> <option value="Book">Book</option> <option value="Butterfly">Butterfly</option> <option value="Calculator">Calculator</option> <option value="Cat">Cat</option> <option value="Chandelier">Chandelier</option> <option value="Computer">Computer</option> <option value="Cow">Cow</option> <option value="Cruise_ship">Cruise ship</option> <option value="Face" selected="">Face</option> <option value="Flower">Flower</option> <option value="Guitar">Guitar</option> <option value="Mosquito">Mosquito</option> <option value="Piano">Piano</option> <option value="Pineapple">Pineapple</option> <option value="Sun">Sun</option> <option value="Truck">Truck</option> <option value="Windmill">Windmill</option> </select> </p> 
+   <p style="
+    margin-top: 0px;
+    margin-bottom: 0px;
+"> <span class="title-span">Difficulty</span> </p> 
+   <p style="
+    margin-top: 0px;
+    margin-bottom: 25px;
+"> <select id="speed_selector" onchange="difficultyChange();"> <option value="0.5">Easy (0.5 x speed)</option> <option value="1.0" selected="">Normal (1.0 x speed)</option> <option value="2.0">Hard (2.0 x speed)</option> </select> </p> 
+   <div class="goback" style="height: 40px;margin-right: 0px;"> 
+    <a href="javascript:void(0);" onclick="prep();" class="discover btn-boxy" id="start_button" style="
+    height: 40px;
+    margin-top: 0px;
+">Play!<span></span></a> 
+   </div>
+   <div class="function-container">
+    <input class="pen" id="pen" type="button" title="Line Width" onclick="showPen()"></input>
+    <div class="palette_wrapper">
+        <input class="palette" id="palette" title="Line Color" type="color"/>
+    </div>
+    <input class="save" id="save" type="button" title="Export" onclick="exportPng()"></input>  
+   </div>
+   <div class="line-container" id="line-container" style="
+    width: 200px; 
+    margin-left: 10px;
+    margin-top: 10px;
+    display: none;
+">
+    <span style="
+    color: white;
+    font-size: small;
+">Line Width</span>
+    <span id="line_value" style="
+    float: right;
+    color: white;
+    font-size: small;
+    background: #000000;
+    border-radius: 5px;
+    width: 40px;
+    text-align: center;
+">5px</span>
+    <input id="range" type="range" min="1" max="30" value="5" oninput="changeRange()" />
+   </div>
+   <div class="Title" style="display: block;"> 
+    <p style="
+    text-align: left;
+    height: 28px;
+    color: white;
+    margin-left: 10px;
+    margin-top: 40px;
+    margin-bottom: 5px;
+    font-size: medium;
+    font-weight: 600;
+    font-family: monospace;
+"> <span id="status" style="
+"></span> </p> 
+    <p style="
+    text-align: left;
+    height: 28px;
+    color: white;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-left: 10px;
+    font-size: medium;
+    font-weight: 600;
+    font-family: monospace;
+"> <span id="counting" style="
+"></span> </p> 
+   </div> 
+   <a style="
+    position: absolute;
+    bottom: 10%;
+   " class="navbar-brand" href="#"><img class="navbar-image" src="assets/img/Surrey.png" style="width: 225px;" /></a> 
+  </div> 
+
+<div class="score" id="score" style="
+    position: absolute;
+    z-index: 1;
+    visibility: hidden;
+    background-color: #FCBD4DCC;
+    font-weight: 500;
+    left: 50%;
+    text-align: center;
+    display: table;
+    top: 30;
+    width: 400px;
+    height: 100px;
+    margin-left: -58px;
+    font-size: 35px;
+    font-family: Calibri, sans-serif;
+">
+        <div id="middle" style="
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+">
+        </div>
+</div>
+
+<div class="tip" id="tip" style="position: absolute;z-index: 1;visibility: hidden;text-align: center;line-height: 80px;width: 500px;height: 80px;font-size: 18px;font-family: Calibri, sans-serif;color: #FD6585;font-weight: 500;left: 379.34px;top: 99.8958px;">
+  Sketch in this area!       
+</div>
+
+<div class="photo-container">
+    <div class="photo" id="bicycle" onclick="sketchClick(event)" style="
+    background: url(assets/img/bicycle.png) no-repeat 0 0;
+    background-size:cover;
+    background-color: white;
+"></div>
+    <div class="photo" id="binoculars" onclick="sketchClick(event)" style="
+    background: url(assets/img/binoculars.png) no-repeat 0 0;
+    background-size:cover;
+    background-color: white;
+"></div>
+    <div class="photo" id="birthday_cake" onclick="sketchClick(event)" style="
+    background: url(assets/img/birthday_cake.png) no-repeat 0 0;
+    background-size:cover;
+    background-color: white;
+"></div>  
+    <div class="photo" id="book" onclick="sketchClick(event)" style="
+    background: url(assets/img/book.png) no-repeat 0 0;
+    background-size:cover;
+    background-color: white;
+"></div>
+    <div class="photo" id="butterfly" onclick="sketchClick(event)" style="
+    background: url(assets/img/butterfly.png) no-repeat 0 0;
+    background-size:cover;
+    background-color: white;
+"></div>
+    <div class="photo" id="calculator" onclick="sketchClick(event)" style="
+    background: url(assets/img/calculator.png) no-repeat 0 0;
+    background-size:cover;
+    background-color: white;
+"></div>
+    <div class="photo" id="cat" onclick="sketchClick(event)" style="
+    background: url(assets/img/cat.png) no-repeat 0 0;
+    background-size:cover;
+    background-color: white;
+"></div>
+    <div class="photo" id="chandelier" onclick="sketchClick(event)" style="
+    background: url(assets/img/chandelier.png) no-repeat 0 0;
+    background-size:cover;
+    background-color: white;
+"></div>
+    <div class="photo" id="computer" onclick="sketchClick(event)" style="
+    background: url(assets/img/computer.png) no-repeat 0 0;
+    background-size:cover;
+    background-color: white;
+"></div>  
+    <div class="photo" id="cow" onclick="sketchClick(event)" style="
+    background: url(assets/img/cow.png) no-repeat 0 0;
+    background-size:cover;
+    background-color: white;
+"></div>
+    <div class="photo" id="cruise_ship" onclick="sketchClick(event)" style="
+    background: url(assets/img/cruise_ship.png) no-repeat 0 0;
+    background-size:cover;
+    background-color: white;
+"></div>
+    <div class="photo" id="face" onclick="sketchClick(event)" style="
+    background: url(assets/img/face.png) no-repeat 0 0;
+    background-size:cover;
+    background-color: white;
+"></div>
+    <div class="photo" id="flower" onclick="sketchClick(event)" style="
+    background: url(assets/img/flower.png) no-repeat 0 0;
+    background-size:cover;
+    background-color: white;
+"></div>  
+    <div class="photo" id="guitar" onclick="sketchClick(event)" style="
+    background: url(assets/img/guitar.png) no-repeat 0 0;
+    background-size:cover;
+    background-color: white;
+"></div>
+    <div class="photo" id="mosquito" onclick="sketchClick(event)" style="
+    background: url(assets/img/mosquito.png) no-repeat 0 0;
+    background-size:cover;
+    background-color: white;
+"></div>
+    <div class="photo" id="piano" onclick="sketchClick(event)" style="
+    background: url(assets/img/piano.png) no-repeat 0 0;
+    background-size:cover;
+    background-color: white;
+"></div>
+    <div class="photo" id="pineapple" onclick="sketchClick(event)" style="
+    background: url(assets/img/pineapple.png) no-repeat 0 0;
+    background-size:cover;
+    background-color: white;
+"></div>
+    <div class="photo" id="sun" onclick="sketchClick(event)" style="
+    background: url(assets/img/sun.png) no-repeat 0 0;
+    background-size:cover;
+    background-color: white;
+"></div>
+    <div class="photo" id="truck" onclick="sketchClick(event)" style="
+    background: url(assets/img/truck.png) no-repeat 0 0;
+    background-size:cover;
+    background-color: white;
+"></div>
+    <div class="photo" id="windmill" onclick="sketchClick(event)" style="
+    background: url(assets/img/windmill.png) no-repeat 0 0;
+    background-size:cover;
+    background-color: white;
+"></div>
+  </div>
+
+  <div class="Result" id="Result" style="
+    min-width: 1100px;
+  "> 
+    <canvas id="acc_chart" width="800" height="200" style="display: block; height: 200px; width: 800px;"></canvas> 
+  </div> 
+  
+  <div class="grid-container" id="pad-container" style="
+    padding-bottom: 30px;
+    min-width: 1100px;
+"> 
+   <div class="Human" id="Human" style="display: block;"> 
+    <canvas id="pad_human" width="500" height="500" style=""></canvas> 
+   </div> 
+   <div class="AI" style="display: block;"> 
+    <canvas id="pad_ai" width="500" height="500" style=""></canvas> 
+   </div> 
+   <script src="sketch.js"></script> 
+  </div> 
+ </body>
+</html>
